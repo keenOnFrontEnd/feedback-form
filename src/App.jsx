@@ -1,6 +1,7 @@
 import { React, useState } from 'react'
 import './App.css'
 import { Formik } from 'formik';
+import logo from './assets/logo.svg'
 
 
 const CustomAlert = ({ isSuccess, setIsSuccess }) => {
@@ -18,13 +19,13 @@ const CustomAlert = ({ isSuccess, setIsSuccess }) => {
 
 
 function App() {
-  const [isSuccess, setIsSuccess] = useState(true)
+  const [isSuccess, setIsSuccess] = useState(false)
 
   return (
     <main className='main-wrapper'>
       <CustomAlert isSuccess={isSuccess} setIsSuccess={setIsSuccess} />
       <div className='form-wrapper'>
-        <img src='../logo.svg' className='logo'/>
+        <img src={logo} className='logo'/>
         <div className='closebutton'> <button> x </button> </div>
         <Formik
           initialValues={{ userName: '', phone: '', email: '', category: '', message: '', agreements: false }}
