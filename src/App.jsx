@@ -1,7 +1,7 @@
 import { React, useState } from 'react'
 import './App.css'
 import { Formik } from 'formik';
-import logo from './assets/logo.svg'
+import Logo from './assets/Logo'
 
 
 const CustomAlert = ({ isSuccess, setIsSuccess }) => {
@@ -14,7 +14,6 @@ const CustomAlert = ({ isSuccess, setIsSuccess }) => {
       </div>
     </div>
   )
-
 }
 
 
@@ -25,7 +24,7 @@ function App() {
     <main className='main-wrapper'>
       <CustomAlert isSuccess={isSuccess} setIsSuccess={setIsSuccess} />
       <div className='form-wrapper'>
-        <img src={logo} className='logo'/>
+        <Logo className='logo'/>
         <div className='closebutton'> <button> x </button> </div>
         <Formik
           initialValues={{ userName: '', phone: '', email: '', category: '', message: '', agreements: false }}
@@ -34,6 +33,8 @@ function App() {
               const errors = {};
               if (!values.userName) {
                 errors.userName = 'Поле є обов\'язковим';
+              } else if (values.userName.match(/\d/)) {
+                errors.userName = 'Поле не повинно містити цифри';
               }
 
               if (values.phone.length < 10) {
@@ -43,7 +44,7 @@ function App() {
               if (!values.email) {
                 errors.email = 'Поле є обов\'язковим';
               }
-              else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)) {
+              else if (!/^([a-z0-9_-]+\.)*[a-z0-9_-]+@[a-z0-9_-]+(\.[a-z0-9_-]+)*\.[a-z]{2,6}$/.test(values.email)) {
                 errors.email = 'Невірний формат електронної пошти';
               }
 
