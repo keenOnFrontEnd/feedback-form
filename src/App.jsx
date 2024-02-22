@@ -19,13 +19,18 @@ const CustomAlert = ({ isSuccess, setIsSuccess }) => {
 
 function App() {
   const [isSuccess, setIsSuccess] = useState(false)
+  const [isClosed, setIsClosed] = useState(false)
+
+  let formShowHandler = () => {
+    setIsClosed(prev => !prev)
+  }
 
   return (
     <main className='main-wrapper'>
       <CustomAlert isSuccess={isSuccess} setIsSuccess={setIsSuccess} />
-      <div className='form-wrapper'>
+      <div className={isClosed ? 'hidden' : 'form-wrapper'}>
         <Logo className='logo'/>
-        <div className='closebutton'> <button> x </button> </div>
+        <div className='closebutton'> <button onClick={formShowHandler}> x </button> </div>
         <Formik
           initialValues={{ userName: '', phone: '', email: '', category: '', message: '', agreements: false }}
           validate={
@@ -154,7 +159,7 @@ function App() {
                 value={values.message}
                 />
               </div>
-              <div className="form-input-container flex-row" >
+              <div className="form-input-container flex-row center" >
                 <input
                   type='checkbox'
                   name='agreements'
@@ -176,6 +181,7 @@ function App() {
           )}
         </Formik>
       </div>
+        <button className={!isClosed ? 'hidden' : 'activate-form-button'} onClick={formShowHandler}> Відкрити форму </button>
     </main>
   )
 }
